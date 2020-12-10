@@ -1,8 +1,14 @@
 # ZeptoProcessor Help functions
 
+Tradutor:
+    Tradutor de código binario presente nos arquivos ROM do Deeds para pseudo código do trabalho de lcl
 
+Compilador:
+    Compilador de pseudo código do processador do projeto de lcl para linguagem de máquina presente nos arquivos .dsd do Deeds.
 
-tradutor de binario para pseudo código(cortesia do Peluti) e vice-versa(compilador e decompilador talvez?),
-o "codigoBin.py" recebe um arquivo .drs como input e traduz para pseudo código enquanto o 
-"Compilador.py" traduz mnemônicos para código de máquina criando um arquivo .drs, que o deeds recebe e escreve na ROM,
-Repositório auxiliar para projeto final de LCL(laboratório de circuitos lógicos).
+    Modo de uso:
+        Para executar o script basta utilizar o interpretador do python passando os argumentos arg1 e arg2, onde arg1 é o arquivo que será salvo e arg2 é o arquivo TXT contendo o pseudo código
+
+        Exemplo:
+            python3 Compilador.py codigo_de_maquina.dsd pseudo_codigo.txt 
+
