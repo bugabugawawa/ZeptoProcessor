@@ -1,4 +1,5 @@
-arquivo = open("CodigoBin.drs", "w")
+arquivo = open("/home/caio/dev/compilador-deeds/ZeptoProcessor/Compilador/CodigoBin.drs", "w")
+instrucoes = open('/home/caio/dev/compilador-deeds/ZeptoProcessor/Compilador/instrucoes.txt','r')
 
 cabecalho = """#------------------------------------------------------------
 #- Deeds (Digital Electronics Education and Design Suite)
@@ -32,17 +33,10 @@ Utilização:
             
             Arquivo gerado: CodigoBin.drs""")
 
-while True:
-    entrada = input()
-    if entrada == '':
-        arquivo.write(cabecalho)
-        nums = nums.split()
-        for i in range(len(lines)):
-            nums[i]=lines[i]
-        nums = [f"{i} {j}\n" for i, j in list(zip(nums, nums[1:]))[::2]]
-        arquivo.writelines(nums)
-        arquivo.close()
-        break
+
+for i in instrucoes:
+    entrada = i.replace('\n','')
+        
     e = entrada.split()
     if e[3][0]=='-':
         number = f"{int(e[3])+1:08b}"
@@ -79,3 +73,13 @@ while True:
         string += f"11"
         string = string[:4] + '.' + string[4:8] + '.' + string[8:12] + '.' + string[12:]
         lines.append(string)
+
+instrucoes.close()
+
+arquivo.write(cabecalho)
+nums = nums.split()
+for i in range(len(lines)):
+    nums[i]=lines[i]
+nums = [f"{i} {j}\n" for i, j in list(zip(nums, nums[1:]))[::2]]
+arquivo.writelines(nums)
+arquivo.close()
