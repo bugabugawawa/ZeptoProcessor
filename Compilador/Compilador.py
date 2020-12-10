@@ -44,29 +44,36 @@ while True:
         arquivo.close()
         break
     e = entrada.split()
+    if e[3][0]=='-':
+        number = f"{int(e[3])+1:08b}"
+        number='0' + number[1:]
+        e[3] = ''.join(['1' if i == '0' else '0'
+                             for i in number])
+    else:
+        e[3] = f'{int(e[3]):08b}'
     if e[0].lower() == 'addi':
-        string = f"{int(e[3]):08b}"
+        string = f"{(e[3])}"
         string += f"{int(e[2]):03b}"
         string += f"{int(e[1]):03b}"
         string += f"00"
         string = string[:4] + '.' + string[4:8] + '.' + string[8:12] + '.' + string[12:]
         lines.append(string)
     if e[0].lower() == 'subi':
-        string = f"{int(e[3]):08b}"
+        string = f"{(e[3])}"
         string += f"{int(e[2]):03b}"
         string += f"{int(e[1]):03b}"
         string += f"01"
         string = string[:4] + '.' + string[4:8] + '.' + string[8:12] + '.' + string[12:]
         lines.append(string)
     if e[0].lower() == 'jleu':
-        string = f"{int(e[3]):08b}"
+        string = f"{(e[3])}"
         string += f"{int(e[2]):03b}"
         string += f"{int(e[1]):03b}"
         string += f"10"
         string = string[:4] + '.' + string[4:8] + '.' + string[8:12] + '.' + string[12:]
         lines.append(string)
     if e[0].lower() == 'jles':
-        string = f"{int(e[3]):08b}"
+        string = f"{(e[3])}"
         string += f"{int(e[2]):03b}"
         string += f"{int(e[1]):03b}"
         string += f"11"
