@@ -1,5 +1,8 @@
-arquivo = open("/home/caio/dev/compilador-deeds/ZeptoProcessor/Compilador/CodigoBin.drs", "w")
-instrucoes = open('/home/caio/dev/compilador-deeds/ZeptoProcessor/Compilador/instrucoes.txt','r')
+import sys
+dir_arquivo = sys.argv[1]
+dir_instrucoes = sys.argv[2]
+arquivo = open(dir_arquivo, "w+")
+instrucoes = open(dir_instrucoes,'r')
 
 cabecalho = """#------------------------------------------------------------
 #- Deeds (Digital Electronics Education and Design Suite)
