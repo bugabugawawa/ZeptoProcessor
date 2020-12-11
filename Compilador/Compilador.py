@@ -1,8 +1,17 @@
 import sys
+
+
+if len(sys.argv) <= 2:
+    if len(sys.argv) == 1:
+        print('Comando invalido. Use --help para mais informações sobre como usar o compilador.')
+        exit()
+    if sys.argv[1] == '--help':
+        print(f'Uso: python Compilador.py arquivo_a_ser_gerado.drs arquivo_contendo_as_instrucoes.zept')
+        exit()
 dir_arquivo = sys.argv[1]
 dir_instrucoes = sys.argv[2]
 arquivo = open(dir_arquivo, "w+")
-instrucoes = open(dir_instrucoes,'r')
+instrucoes = open(dir_instrucoes, 'r')
 
 cabecalho = """#------------------------------------------------------------
 #- Deeds (Digital Electronics Education and Design Suite)
@@ -19,11 +28,11 @@ cabecalho = """#------------------------------------------------------------
 #B
 
 """
-nums='1111.1111.1111.1111 1111.1111.1111.1111 \n'*127
+nums = '1111.1111.1111.1111 1111.1111.1111.1111 \n'*127
 
 lines = []
 
-print("""
+print(f"""
 Utilização:
             addi Ra Rb Imm
             subi Ra Rb Imm 
@@ -34,11 +43,11 @@ Utilização:
             indo de 0 a 7 e digite em decimal.
             Digite dê enter em uma linha vazia para finalizar o código.
             
-            Arquivo gerado: CodigoBin.drs""")
-    
+            Arquivo gerado: {arquivo}""")
+
 strings = []
 for i in instrucoes:
-    substring =""
+    substring = ""
     for j in i:
         if j == '#':
             break
@@ -46,16 +55,16 @@ for i in instrucoes:
     strings.append(substring)
 
 for i in strings:
-    if i =='\n' or i == '':
+    if i == '\n' or i == '':
         continue
-    entrada = i.replace('\n','')
-        
+    entrada = i.replace('\n', '')
+
     e = entrada.split()
-    if e[3][0]=='-':
+    if e[3][0] == '-':
         number = f"{int(e[3])+1:08b}"
-        number='0' + number[1:]
+        number = '0' + number[1:]
         e[3] = ''.join(['1' if i == '0' else '0'
-                             for i in number])
+                        for i in number])
     else:
         e[3] = f'{int(e[3]):08b}'
     if e[0].lower() == 'addi':
@@ -63,28 +72,32 @@ for i in strings:
         string += f"{int(e[2]):03b}"
         string += f"{int(e[1]):03b}"
         string += f"00"
-        string = string[:4] + '.' + string[4:8] + '.' + string[8:12] + '.' + string[12:]
+        string = string[:4] + '.' + string[4:8] + \
+            '.' + string[8:12] + '.' + string[12:]
         lines.append(string)
     if e[0].lower() == 'subi':
         string = f"{(e[3])}"
         string += f"{int(e[2]):03b}"
         string += f"{int(e[1]):03b}"
         string += f"01"
-        string = string[:4] + '.' + string[4:8] + '.' + string[8:12] + '.' + string[12:]
+        string = string[:4] + '.' + string[4:8] + \
+            '.' + string[8:12] + '.' + string[12:]
         lines.append(string)
     if e[0].lower() == 'jleu':
         string = f"{(e[3])}"
         string += f"{int(e[2]):03b}"
         string += f"{int(e[1]):03b}"
         string += f"10"
-        string = string[:4] + '.' + string[4:8] + '.' + string[8:12] + '.' + string[12:]
+        string = string[:4] + '.' + string[4:8] + \
+            '.' + string[8:12] + '.' + string[12:]
         lines.append(string)
     if e[0].lower() == 'jles':
         string = f"{(e[3])}"
         string += f"{int(e[2]):03b}"
         string += f"{int(e[1]):03b}"
         string += f"11"
-        string = string[:4] + '.' + string[4:8] + '.' + string[8:12] + '.' + string[12:]
+        string = string[:4] + '.' + string[4:8] + \
+            '.' + string[8:12] + '.' + string[12:]
         lines.append(string)
 
 instrucoes.close()
@@ -92,7 +105,7 @@ instrucoes.close()
 arquivo.write(cabecalho)
 nums = nums.split()
 for i in range(len(lines)):
-    nums[i]=lines[i]
+    nums[i] = lines[i]
 nums = [f"{i} {j}\n" for i, j in list(zip(nums, nums[1:]))[::2]]
 arquivo.writelines(nums)
 arquivo.close()
